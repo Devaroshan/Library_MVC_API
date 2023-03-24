@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Library_MVC_API.Models.Booking>
+
+@{
+    ViewData["Title"] = "History";
+}
+<style>
+    * {
+        color: black;
+    }
+</style>
+
+@{
+    if(ViewBag.empty != null)
+    {
+        <p>
+            <a asp-action="Favourite">Back to Store</a>
+        </p>
+        <h1 class="text-danger">@ViewBag.empty</h1>        
+    }
+    else
+    {
+        <h1>Purchase History</h1>
+        <p>
+            <a asp-action="Favourite">Back to Store</a>
+        </p>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Bid)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Bname)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Author)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Jonour)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NoofCopies)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TotalPrice)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Bid)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Bname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Author)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Jonour)
+                        </td>
+                        <td>
+                            &#8377 @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NoofCopies)
+                        </td>
+                        <td>
+                            &#8377 @Html.DisplayFor(modelItem => item.TotalPrice)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+

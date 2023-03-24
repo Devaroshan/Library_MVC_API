@@ -1,0 +1,56 @@
+﻿@model Library_MVC_API.Models.login
+
+@{
+    ViewData["Title"] = "AdminLogin";
+}
+@{
+    if (@ViewBag.error != null)
+    {
+        <h1 class="text-danger"> @ViewBag.error</h1>
+    }
+}
+<style>
+    body {
+        flex-direction: row;
+        /*margin-bottom: 60px;*/
+        background-image: url("https://images.pexels.com/photos/694740/pexels-photo-694740.jpeg?cs=srgb&dl=pexels-min-an-694740.jpg&fm=jpg");
+        height: 100%;
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+<div class="row3">
+    <div class="log">
+        <form asp-action="AdminLogin">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @{
+                if (@ViewBag.message != null)
+                {
+                    <p class="text-warning">@ViewBag.message</p>
+                }
+            }
+            <div class="form-group">
+                <label asp-for="Userid" class="control-label"></label>
+                <input asp-for="Userid" type="email" class="form-control" />
+                <span asp-validation-for="Userid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" type="password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="login" class="btn btn-outline-dark" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

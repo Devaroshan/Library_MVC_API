@@ -1,0 +1,72 @@
+﻿
+@model Library_MVC_API.Models.Book
+
+@{
+    ViewData["Title"] = "Buy";
+}
+<style>
+    * {
+        color: black;
+    }
+</style>
+<h1>Confirmation</h1>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Bid)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Bid)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Bname)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Bname)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Jonour)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Jonour)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>        
+    </dl>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Buy">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @{
+                if (@ViewBag.message != null)
+                {
+                    <p class="text-danger">@ViewBag.message</p>
+                }
+            }               
+            <div class="form-group">
+                <label asp-for="NoofCopies" class="control-label"></label>
+                <input asp-for="NoofCopies" class="form-control" />
+                <span asp-validation-for="NoofCopies" class="text-danger"></span>
+            </div>            
+            <div class="form-group">
+                <input type="submit" value="Add to cart" class="btn btn-outline-dark" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Favourite">Back to Store</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

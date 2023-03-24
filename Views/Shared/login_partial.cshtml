@@ -1,0 +1,47 @@
+﻿@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json;
+@inject IHttpContextAccessor HttpContextAccessor
+<ul class="navbar-nav">
+    @{        
+        ViewBag.Data = @HttpContextAccessor.HttpContext.Session.GetString("Name");
+        ViewBag.Data1 = @HttpContextAccessor.HttpContext.Session.GetString("StaffName");
+    }
+    @if (ViewBag.Data != null)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" title="Manage">Hello @ViewBag.Data</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Library" asp-action="Details" title="Manage">Profile</a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-controller="Login" asp-action="logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            </form>
+        </li>
+    }
+    else if (ViewBag.Data1 != null)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" title="Manage">Hello @ViewBag.Data1</a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-controller="Login" asp-action="AdminLogout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-white-50" asp-controller="Login" asp-action="AdminLogin">Staff Login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white-50" asp-controller="Login" asp-action="Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white-50" asp-controller="Login" asp-action="login">Login</a>
+        </li>
+    }
+</ul>
+

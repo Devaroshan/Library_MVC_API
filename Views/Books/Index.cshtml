@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Library_MVC_API.Models.Book>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<style>
+    * {
+        color: black;
+    }
+</style>
+
+
+<p>
+    <a asp-action="Create">Add Books</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Bid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bname)
+            </th>
+            <th>                
+                @Html.DisplayNameFor(model => model.Author)                
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Jonour)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoofCopies)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bname)
+            </td>
+            <td>                
+                @Html.DisplayFor(modelItem => item.Author)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Jonour)
+            </td>
+            <td>
+                &#8377 @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoofCopies)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Bid">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Bid">Info</a> |
+                <a asp-action="Delete" asp-route-id="@item.Bid">Remove</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div>
+    <a asp-action="Entry">Back</a>
+</div>

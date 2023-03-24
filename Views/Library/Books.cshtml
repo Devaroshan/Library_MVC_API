@@ -1,0 +1,152 @@
+﻿@model IEnumerable<Library_MVC_API.Models.Book>
+
+@{
+    ViewData["Title"] = "Books";
+}
+
+<style>
+    * {
+        color: black;
+    }
+</style>
+<p>
+    <a asp-action="cart" class="btn btn-outline-dark">@ViewBag.name's Cart</a>
+    <a>                                                                        </a>
+    <a asp-action="History" class="btn btn-outline-dark">Purchase History</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Bid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Jonour)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoofCopies)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Jonour)
+                </td>
+                <td>
+                    &#8377 @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NoofCopies)
+                </td>
+                <td>
+                    <a asp-action="Buy" asp-route-id="@item.Bid">Order</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@*@{
+    if (ViewBag.j == "Fiction")
+    {
+        
+    }
+}
+<style>
+    .container {
+        width:100%;
+        height:100%;
+    }   
+    
+    .l { 
+        
+        float: left;
+        color:black;
+        /*font-weight:bold;*/
+        font-family: 'Brush Script MT', cursive;
+        padding: 35px;
+        padding-bottom:200px;
+        display:block;
+        width:275px;
+        height: 200px;        
+        text-align: center; 
+        border:1px solid black;
+        border-radius:30px;
+        margin-right: 20px;
+        margin-bottom: 20px;
+    }
+
+    .u{
+        content: "";
+        display: table;
+        row-gap:30px;
+        clear: both;        
+    }
+    .icon{
+        width: 40px;
+        height: 40px;
+        border-radius:10px;
+    }
+</style>
+
+<p>
+    <a asp-action="cart" class="btn btn-outline-dark">
+        <img class="icon" src="~/Cart.png" />
+    </a>
+    <a asp-action="History" class="btn btn-outline-dark">
+        <img class="icon" src="~/History.png" />
+    </a>
+</p>
+
+<div class="container"> 
+    <ul class="u">
+        @foreach (var item in Model)
+        {
+            ViewBag.j = item.Jonour;
+            <li class="l">
+                <div >
+                    <div>
+                        @Html.DisplayFor(modelItem => item.Bname)
+                    </div>
+                    <div>
+                        @Html.DisplayFor(modelItem => item.Author)
+                    </div>
+                    <div>
+                        @Html.DisplayFor(modelItem => item.Jonour)
+                    </div>
+                    <div>
+                        &#8377 @Html.DisplayFor(modelItem => item.Price)
+                    </div>                    
+                    <span>
+                        <a asp-action="Buy" asp-route-id="@item.Bid">
+                            <img class="icon" src="~/Buy.png"/>
+                        </a>
+                    </span>
+                </div>
+            </li>
+        }
+    </ul>
+</div>*@

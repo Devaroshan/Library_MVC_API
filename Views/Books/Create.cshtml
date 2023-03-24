@@ -1,0 +1,76 @@
+﻿@model Library_MVC_API.Models.Book
+
+@{
+    ViewData["Title"] = "Create";
+}
+<style>
+    * {
+        color: black;
+    }
+</style>
+<h1>Adding Books to List</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @{
+                if (@ViewBag.message != null)
+                {
+                    <p class="text-danger">@ViewBag.message</p>
+                }
+            }
+            @{
+                if (@ViewBag.mes != null)
+                {
+                    <p class="text-danger">@ViewBag.mes</p>
+                }
+            }
+            <div class="form-group">
+                <label asp-for="Bid" class="control-label"></label>
+                <input asp-for="Bid" class="form-control" />
+                <span asp-validation-for="Bid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bname" class="control-label"></label>
+                <input asp-for="Bname" class="form-control" />
+                <span asp-validation-for="Bname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Author" class="control-label"></label>
+                <input asp-for="Author" class="form-control" />
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Jonour" class="control-label"></label>
+                <input asp-for="Jonour" class="form-control" />
+                <span asp-validation-for="Jonour" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NoofCopies" class="control-label"></label>
+                <input asp-for="NoofCopies" class="form-control" />
+                <span asp-validation-for="NoofCopies" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add to Store" class="btn btn-outline-dark" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to Books list</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

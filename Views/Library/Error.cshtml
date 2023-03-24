@@ -1,0 +1,43 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+}
+<head>
+    <title>ERROR</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<style>
+    body {
+        flex-direction: row;
+        /*margin-bottom: 60px;*/
+        background-image: url("https://previews.123rf.com/images/pa3x/pa3x1605/pa3x160500012/56425147-404-error-web-page-background-vector-design-page-not-found-template-with-typography.jpg");
+        height: 100%;
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        position :fixed;
+    }
+
+    .error {        
+        /*align-content: center;
+        text-align: center;
+        text-align: justify-all;
+        vertical-align: middle;
+        line-height: normal;*/
+        top: 10%;
+        left: 50%;
+        margin-top: 450px;
+        margin-left: 505px;
+    }
+</style>
+
+<div class="error">
+    <div>        
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Go to homepage</a>
+    </div>    
+</div>

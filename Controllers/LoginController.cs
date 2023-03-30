@@ -91,14 +91,12 @@ namespace Library_MVC_API.Controllers
                 {
                     return View(c);
                 }
-                
-                //db.Clients.Add(c);
-                //db.SaveChanges();
             }
             catch (Exception)
             {
                 ViewBag.message = "Input exceed limits";
             }
+            TempData["success"] = "Registration Successful";
             return RedirectToAction("login");
         }
         

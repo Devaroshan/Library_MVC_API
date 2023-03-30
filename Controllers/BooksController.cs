@@ -13,8 +13,6 @@ namespace Library_MVC_API.Controllers
 {
     public class BooksController : Controller
     {
-        //List<Book> Book1 = new List<Book>();
-        // GET: Books
         public async Task<IActionResult> Index()
         {
             var c = HttpContext.Session.GetString("StaffName");
@@ -38,7 +36,6 @@ namespace Library_MVC_API.Controllers
                     }
                     return View(Book1);
                 }
-                //return View(await _context.Books.ToListAsync());
             }
             else
             {
@@ -47,7 +44,6 @@ namespace Library_MVC_API.Controllers
             
         }
 
-        // GET: Books/Details/5
         public async Task<IActionResult> Details(string id)
         {
             var c = HttpContext.Session.GetString("StaffName");
@@ -66,7 +62,6 @@ namespace Library_MVC_API.Controllers
                 {
                     return NotFound();
                 }
-       
                 return View(book);
             }
             else
@@ -74,8 +69,6 @@ namespace Library_MVC_API.Controllers
                 return RedirectToAction("AdminLogin", "Login");
             }
         }
-        
-        // GET: Books/Create
         public IActionResult Create()
         {
             var c = HttpContext.Session.GetString("StaffName");
@@ -89,10 +82,6 @@ namespace Library_MVC_API.Controllers
             }
             
         }
-
-        // POST: Books/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Bid,Bname,Author,Jonour,Price,NoofCopies")] Book book)
@@ -126,11 +115,9 @@ namespace Library_MVC_API.Controllers
             else
             {
                 return RedirectToAction("AdminLogin", "Login");
-            }
-            
+            }            
         }
         
-        // GET: Books/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             var c = HttpContext.Session.GetString("StaffName");
@@ -154,13 +141,9 @@ namespace Library_MVC_API.Controllers
             else
             {
                 return RedirectToAction("AdminLogin", "Login");
-            }
-            
+            }            
         }
-
-        // POST: Books/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("Bid,Bname,Author,Jonour,Price,NoofCopies")] Book book)
@@ -172,7 +155,6 @@ namespace Library_MVC_API.Controllers
                 {
                     return NotFound();
                 }
-
                 if (ModelState.IsValid)
                 {
                     Book b2 = new();
@@ -200,11 +182,8 @@ namespace Library_MVC_API.Controllers
             else
             {
                 return RedirectToAction("AdminLogin", "Login");
-            }
-            
+            }            
         }
-        
-        // GET: Books/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             var c = HttpContext.Session.GetString("StaffName");
@@ -229,11 +208,9 @@ namespace Library_MVC_API.Controllers
             else
             {
                 return RedirectToAction("AdminLogin", "Login");
-            }
-            
+            }            
         }
 
-        // POST: Books/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
@@ -253,11 +230,9 @@ namespace Library_MVC_API.Controllers
                 if (book != null)
                 {
                     book.NoofCopies = 0;
-                    Book b2 = new();
-                    //string foodId = TempData["foodId"].ToString();
+                    Book b2 = new();;
                     using (var httpClient = new HttpClient())
                     {
-                        //string id = foodItemFromMVC.FoodId;
                         StringContent valueToUpdate = new StringContent(JsonConvert.SerializeObject(book)
                  , Encoding.UTF8, "application/json");
                         using (var response = await httpClient.PutAsync("https://localhost:7230/api/Books/" + id, valueToUpdate))
@@ -266,19 +241,13 @@ namespace Library_MVC_API.Controllers
                             b2 = JsonConvert.DeserializeObject<Book>(apiResponse);
                         }
                     }
-                    /*Book1.Add(b2);
-                    book.NoofCopies = 0;
-                    _context.Books.Update(book);*/
                 }
-
-                //await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             else
             {
                 return RedirectToAction("AdminLogin", "Login");
-            }
-            
+            }            
         }
 
         [HttpGet]
@@ -300,8 +269,7 @@ namespace Library_MVC_API.Controllers
             else
             {
                 return RedirectToAction("AdminLogin", "Login");
-            }
-            
+            }            
         }
         public async Task<IActionResult> SalesDetails()
         {

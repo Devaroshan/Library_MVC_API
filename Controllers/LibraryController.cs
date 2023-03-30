@@ -1,4 +1,5 @@
-﻿using Library_MVC_API.Models;
+﻿
+using Library_MVC_API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
@@ -68,7 +69,6 @@ namespace Library.Controllers
                 }
                 if (bc != null)
                 {
-                    //var bc = db.Books.Find(res.Bid);
                     if (b.NoofCopies > bc.NoofCopies)
                     {
                         ViewBag.message = "Only " + bc.NoofCopies + " copies available";
@@ -109,7 +109,6 @@ namespace Library.Controllers
                             }
                             bk1.Status = 0;
                             Booking b2 = new();
-                            //string foodId = TempData["foodId"].ToString();
                             using (var httpClient = new HttpClient())
                             {
                                 //string id = foodItemFromMVC.FoodId;
@@ -190,8 +189,7 @@ namespace Library.Controllers
             else
             {
                 return RedirectToAction("login", "Login");
-            }
-            
+            }            
         }
         
         [HttpGet]
@@ -202,8 +200,6 @@ namespace Library.Controllers
             {
                 var c = HttpContext.Session.GetString("Client");
                 Client cl = JsonConvert.DeserializeObject<Client>(c);
-                /*var result = new List<Booking>();
-                var res = new Client();*/
                 if (cl == null)
                 {
                     return RedirectToAction("login", "Login");
@@ -235,13 +231,8 @@ namespace Library.Controllers
                         {
                             var apiResponse = Res.Content.ReadAsStringAsync().Result;
                             Booking1 = JsonConvert.DeserializeObject<List<Booking>>(apiResponse);
-
                         }
-                        //return View(Book1);
                     }
-                    /*result = (from i in Booking1
-                              where i.Cid == cl.Cid && i.Status == 0
-                              select i).ToList();*/
                     if(Booking1.Count == 0)
                     {
                         ViewBag.empty = "Cart is empty";
@@ -253,8 +244,7 @@ namespace Library.Controllers
             else
             {
                 return RedirectToAction("login", "Login");
-            }
-                       
+            }                       
         }
         public async Task<IActionResult> History()
         {
@@ -262,9 +252,7 @@ namespace Library.Controllers
             if (y != null)
             {
                 var c = HttpContext.Session.GetString("Client");
-                Client cl = JsonConvert.DeserializeObject<Client>(c);
-                /*var result = new List<Booking>();
-                var res = new Client();*/
+                Client cl = JsonConvert.DeserializeObject<Client>(c);                
                 if (cl == null)
                 {
                     return RedirectToAction("login", "Login");
@@ -283,9 +271,6 @@ namespace Library.Controllers
                             Booking1 = JsonConvert.DeserializeObject<List<Booking>>(apiResponse);
                         }
                     }
-                    /*result = (from i in Booking1
-                              where i.Cid == cl.Cid && i.Status == 1
-                              select i).ToList();*/
                     if (Booking1.Count == 0)
                     {
                         ViewBag.empty = "There is no purchase history";
@@ -322,17 +307,14 @@ namespace Library.Controllers
                 {
                     return NotFound();
                 }
-
                 return View(booking);
             }
             else
             {
                 return RedirectToAction("login", "Login");
-            }
-            
+            }            
         }
 
-        // POST: Books/Delete/5
         [HttpPost, ActionName("DeleteCart")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -365,7 +347,6 @@ namespace Library.Controllers
                     }
                     cl1.TotalPrice -= booking.TotalPrice;
                     cl1.NoofBooks -= booking.NoofCopies;
-                    //b.NoofCopies += booking.NoofCopies;
                     using (var httpClient = new HttpClient())
                     {
                         using (var response = await httpClient.DeleteAsync("https://localhost:7230/api/Bookings/" + booking.Bkid))
@@ -398,7 +379,6 @@ namespace Library.Controllers
         [HttpGet]
         public async Task<IActionResult> Favourite()
         {
-            
             ViewBag.name = HttpContext.Session.GetString("Name");
             if (ViewBag.name != null)
             {
@@ -416,7 +396,6 @@ namespace Library.Controllers
                             var apiResponse = Res.Content.ReadAsStringAsync().Result;
                             Book1 = JsonConvert.DeserializeObject<List<Book>>(apiResponse);
                         }
-                        //return View(Book1);
                     }
                     List<string?> A = new();
                     A.Add(null);
@@ -446,7 +425,6 @@ namespace Library.Controllers
             if (y != null)
             {                
                 var result = new List<Book>();
-                //List<Book> books = new List<Book>();
                 using (var client = new HttpClient())
                 {
                     StringContent valuesToAdd = new StringContent(JsonConvert.SerializeObject(b),
@@ -457,7 +435,6 @@ namespace Library.Controllers
                         var apiResponse = Res.Content.ReadAsStringAsync().Result;
                         result = JsonConvert.DeserializeObject<List<Book>>(apiResponse);
                     }
-                    //return View(Book1);
                 }
                 HttpContext.Session.SetString("Book", JsonConvert.SerializeObject(result));
                 HttpContext.Session.SetString("Favour", JsonConvert.SerializeObject(b));
@@ -480,7 +457,6 @@ namespace Library.Controllers
                 ViewBag.Mes = "Payment is done";
                 var c = HttpContext.Session.GetString("Client");
                 Client cl = JsonConvert.DeserializeObject<Client>(c);
-                
                 Client cl1 = new();
                 using (var httpClient = new HttpClient())
                 {
@@ -502,9 +478,6 @@ namespace Library.Controllers
                         Booking1 = JsonConvert.DeserializeObject<List<Booking>>(apiResponse);
                     }
                 }
-                /*var res = (from i in Booking1
-                           where i.Cid == cl.Cid && i.Status == 0
-                           select i).ToList();*/
                 if (Booking1.Count() != 0)
                 {                    
                     foreach (var j in Booking1)
@@ -531,7 +504,6 @@ namespace Library.Controllers
                             Book b2 = new();
                             using (var httpClient = new HttpClient())
                             {
-                                //string id = foodItemFromMVC.FoodId;
                                 StringContent valueToUpdate = new StringContent(JsonConvert.SerializeObject(b)
                          , Encoding.UTF8, "application/json");
                                 using (var response = await httpClient.PutAsync("https://localhost:7230/api/Books/" + b.Bid, valueToUpdate))
@@ -544,7 +516,6 @@ namespace Library.Controllers
                             Booking bk2 = new();
                             using (var httpClient = new HttpClient())
                             {
-                                //string id = foodItemFromMVC.FoodId;
                                 StringContent valueToUpdate = new StringContent(JsonConvert.SerializeObject(j)
                          , Encoding.UTF8, "application/json");
                                 using (var response = await httpClient.PutAsync("https://localhost:7230/api/Bookings/" + j.Bkid, valueToUpdate))
@@ -557,7 +528,6 @@ namespace Library.Controllers
                             Client c2 = new();
                             using (var httpClient = new HttpClient())
                             {
-                                //string id = foodItemFromMVC.FoodId;
                                 StringContent valueToUpdate = new StringContent(JsonConvert.SerializeObject(cl1)
                          , Encoding.UTF8, "application/json");
                                 using (var response = await httpClient.PutAsync("https://localhost:7230/api/Clients/" + cl.Cid, valueToUpdate))
@@ -587,8 +557,7 @@ namespace Library.Controllers
             else
             {
                 return RedirectToAction("login", "Login");
-            }
-            
+            }            
         }
         
         public async Task<IActionResult> Details()
@@ -661,7 +630,6 @@ namespace Library.Controllers
                             cl1 = JsonConvert.DeserializeObject<Client>(apiResponse);
                         }
                     }
-                    //var cl1 = db.Clients.Find(id);
                     if (cl1 != null)
                     {
                         cl1.Cname = cl.Cname;
@@ -689,7 +657,6 @@ namespace Library.Controllers
                             }
                         }
                     }
-                    //db.SaveChanges();
                     return RedirectToAction("Details", "Library");
                 }
             }
@@ -746,14 +713,11 @@ namespace Library.Controllers
                                         x = JsonConvert.DeserializeObject<Client>(apiResponse);
                                     }
                                 }
-                                //var x = db.Clients.Find(cl.Cid);
                                 x.Password = c.Password;
                                 x.CPassword = c.CPassword;
                                 Client c2 = new();
-                                //string foodId = TempData["foodId"].ToString();
                                 using (var httpClient = new HttpClient())
                                 {
-                                    //string id = foodItemFromMVC.FoodId;
                                     StringContent valueToUpdate = new StringContent(JsonConvert.SerializeObject(x)
                              , Encoding.UTF8, "application/json");
                                     using (var response = await httpClient.PutAsync("https://localhost:7230/api/Clients/" + cl.Cid, valueToUpdate))
@@ -762,7 +726,6 @@ namespace Library.Controllers
                                         c2 = JsonConvert.DeserializeObject<Client>(apiResponse);
                                     }
                                 }
-                                //db.SaveChanges();
                                 TempData["success"] = "Password Changed";
                                 return RedirectToAction("Details");
                             }
